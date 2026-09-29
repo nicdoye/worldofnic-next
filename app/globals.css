@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/*
+ * Color tokens live in a plain (non-inline) @theme block so the utilities
+ * Tailwind generates (bg-paper, text-ink, border-line, ...) reference
+ * var(--color-x) rather than having the literal value inlined at build
+ * time — inlining would freeze them at their light-mode value and break
+ * the prefers-color-scheme override below. Fonts stay in @theme inline
+ * since they need to reference next/font's runtime-scoped variables.
+ */
+@theme {
+  /* Light by default; flipped for prefers-color-scheme: dark below. */
+  --color-paper: #fafafa;
+  --color-card: #ffffff;
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #52585d;
+  --color-accent: #e40014;
+  --color-line: #e5e5e5;
+
+  /* Fixed dark panel (Code section, footer) — stays ink-black in both themes. */
+  --color-panel: #0a0a0a;
+}
+
+@theme inline {
+  --font-display: var(--font-inter-tight), "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #0a0a0a;
+    --color-card: #141413;
+    --color-ink: #fafafa;
+    --color-ink-soft: #a8aeb2;
+    --color-accent: #ff2d35;
+    --color-line: rgba(255, 255, 255, 0.14);
+  }
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
